@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    gap: 60px;
+}
+.right,.left{
+    padding: 50px;
+}
+#message{
+    color: red;
+}
+#area{
+    width: 200px;
+    height: 200px;
+}

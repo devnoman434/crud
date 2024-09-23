@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <form id="form">
+                <h3> Social media App</h3>
+                <p>Write your posts here</p>
+                <input type="text" pattern="[A-Za-z]+" placeholder="type something..." id="area" ><br>
+                <p id="message"></p><br><br>
+                <button type="submit" id="input">Submit</button>
+            </form>
+        </div>
+
+        <div class="right">
+            <h3>Your posts here</h3>
+            <div id="posts"></div>
+        </div>
+    </div>
+
+
+    <script>
+        let form = document.getElementById("form");
+        let msg = document.getElementById("message");
+        let input = document.getElementById("input");
+        let posts = document.getElementById("posts");
+        let area = document.getElementById("area");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("button clicked");
+            formValidation()
+        });
+
+        area.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) { 
+                formValidation();
+            }
+        });
+
+        let formValidation = () => {
+            if (area.value === "") {
+                msg.innerHTML = " Post cannot be blank ";
+            }
+            else {
+                msg.innerHTML = "";
+                acceptData();
+            }
+        }
+        let data = {};
+
+        let acceptData = () => {
+            data["text"] = area.value;
+            console.log(data);
+            createPost();
+        }
+        
+        let createPost = () => {
+            posts.innerHTML += `
+            <div>
+            <p>${data.text}</p>
+    <span class="options">
+      <i onClick=editPost(this) class="fas fa-edit"></i>
+      <i onClick="deletePost(this)" class="fas fa-trash-alt"></i>
+    </span>
+  </div>`
+  area.value=""
+        };
+
+        let deletePost = (e) => {
+  e.parentElement.parentElement.remove();
+  console.log("element removed")
+};
+
+let editPost = (e) => {
+  area.value = e.parentElement.previousElementSibling.innerHTML;
+  e.parentElement.parentElement.remove();
+};
+    </script>
+</body>
+
+</html>
+
+
